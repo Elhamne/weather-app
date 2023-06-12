@@ -1,0 +1,8 @@
+body {
+  font-family: "Roboto Flex", sans-serif;
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 720px;
+}
