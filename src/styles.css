@@ -3,6 +3,10 @@ body {
 }
 
 .container {
-  margin: 20px auto;
+  margin: 50px auto;
   max-width: 720px;
+}
+
+.card-footer {
+  text-align: left;
 }
