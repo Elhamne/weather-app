@@ -37,13 +37,15 @@
           <p class="fs-5" id="description">-</p>
         </div>
         <div class="mt-5 mb-5 d-flex justify-content-between">
-          <div class="d-flex">
-            <h3 class="display-4 mx-3 fw-bold" id="temperature">
+          <div class="d-flex mx-3">
+            <h3 class="display-4 fw-bold" id="temperature">
               <span id="temp">--</span>
-              <span id="celsius">°C</span>
             </h3>
+            <small class="fs-5 mt-1">
+              <span id="celsius" class="units">°C</span> | <span id="fahrenheit" class="units active">°F</span>
+            </small>
           </div>
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column align-items-start mx-3">
             <p class="mb-0">Humidity: <strong id="humidity">-</strong>%</p>
             <p>Wind: <strong id="wind">-</strong> km/h</p>
           </div>
