@@ -36,21 +36,5 @@ const showCityWeather = (e) => {
   axios.get(apiUrl).then(showTemprature);
 };
 
-const showCurrentWeather = (e) => {
-  e.preventDefault();
-
-  navigator.geolocation.getCurrentPosition((position) => {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
-
-    axios.get(apiUrl).then(showTemprature);
-  });
-};
-
 let searchForm = document.querySelector('#search-form');
 searchForm.addEventListener('submit', showCityWeather);
-
-let currentBtn = document.querySelector('#current');
-currentBtn.addEventListener('click', showCurrentWeather);
