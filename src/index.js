@@ -1,5 +1,6 @@
 const apiKey = 'b70ee57c3c80ad353268cc880561796d';
 let units = 'metric';
+let city = 'tehran';
 
 const capitalize = (string) => {
   string = string.toLowerCase().trim();
@@ -7,7 +8,6 @@ const capitalize = (string) => {
 };
 
 const showTemprature = (response) => {
-  console.log(response.data);
   let tempElement = document.querySelector('#temp');
   let humidityElement = document.querySelector('#humidity');
   let windElement = document.querySelector('#wind');
@@ -27,14 +27,18 @@ const showTemprature = (response) => {
   windElement.innerHTML = wind;
 };
 
-const showCityWeather = (e) => {
-  e.preventDefault();
-  let searchCity = capitalize(document.querySelector('#search-value').value);
-
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=${units}&appid=${apiKey}`;
-
+const search = (cityName) => {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${apiKey}`;
   axios.get(apiUrl).then(showTemprature);
 };
 
+const handleSumbit = (e) => {
+  e.preventDefault();
+  let searchCity = capitalize(document.querySelector('#search-value').value);
+  search(searchCity);
+};
+
+search(city);
+
 let searchForm = document.querySelector('#search-form');
-searchForm.addEventListener('submit', showCityWeather);
+searchForm.addEventListener('submit', handleSumbit);
