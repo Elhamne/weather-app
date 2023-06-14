@@ -15,18 +15,24 @@ const showTemprature = (response) => {
   let windElement = document.querySelector('#wind');
   let header = document.querySelector('h1');
   let descElement = document.querySelector('#description');
+  let iconElement = document.querySelector('#icon');
 
   let city = response.data.name;
   temp = Math.round(response.data.main.temp);
   let humidity = response.data.main.humidity;
   let wind = response.data.wind.speed;
   let description = response.data.weather[0].description;
+  let icon = response.data.weather[0].icon;
 
   header.innerHTML = city;
   descElement.innerHTML = description;
   tempElement.innerHTML = temp;
   humidityElement.innerHTML = humidity;
   windElement.innerHTML = wind;
+  iconElement.setAttribute(
+    'src',
+    `https://openweathermap.org/img/wn/${icon}@2x.png`
+  );
 };
 
 const search = (cityName) => {
