@@ -44,11 +44,12 @@ const showForecast = (response) => {
         <div><img src=${forecast.condition.icon_url} alt=${
         forecast.condition.description
       } title=${forecast.condition.icon}></div>
-        <div><span id="max">${Math.round(
-          forecast.temperature.maximum
-        )}°</span>  <span id="min" class="text-secondary">${Math.round(
-        forecast.temperature.minimum
-      )}°</span></div>
+        <div class="d-flex justify-content-evenly">
+          <span id="max">${Math.round(forecast.temperature.maximum)}°</span>
+          <span id="min" class="text-secondary">${Math.round(
+            forecast.temperature.minimum
+          )}°</span>
+        </div>
       </div>
       `;
     }
