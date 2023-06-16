@@ -1,4 +1,4 @@
-const apiKey = 'b70ee57c3c80ad353268cc880561796d';
+const apiKey = '478de676b73f4e1bafa3f6642o5043et';
 let units = 'metric';
 let city = 'tehran';
 let temp = 0;
@@ -17,26 +17,23 @@ const showTemprature = (response) => {
   let descElement = document.querySelector('#description');
   let iconElement = document.querySelector('#icon');
 
-  let city = response.data.name;
-  temp = Math.round(response.data.main.temp);
-  let humidity = response.data.main.humidity;
+  let city = response.data.city;
+  temp = Math.round(response.data.temperature.current);
+  let humidity = response.data.temperature.humidity;
   let wind = response.data.wind.speed;
-  let description = response.data.weather[0].description;
-  let icon = response.data.weather[0].icon;
+  let description = response.data.condition.description;
+  let icon = response.data.condition.icon_url;
 
   header.innerHTML = city;
   descElement.innerHTML = description;
   tempElement.innerHTML = temp;
   humidityElement.innerHTML = humidity;
   windElement.innerHTML = wind;
-  iconElement.setAttribute(
-    'src',
-    `https://openweathermap.org/img/wn/${icon}@2x.png`
-  );
+  iconElement.setAttribute('src', icon);
 };
 
 const search = (cityName) => {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${cityName}&key=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemprature);
 };
 
