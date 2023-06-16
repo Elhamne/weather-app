@@ -7,6 +7,24 @@ const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+const formatDate = (dt) => {
+  date = new Date(dt * 1000);
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  let day = days[date.getDay()];
+  let hour = (date.getHours() < 10 ? '0' : '') + date.getHours();
+  let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+
+  return `${day} ${hour}:${minutes}`;
+};
+
 const formatDay = (dt) => {
   date = new Date(dt * 1000);
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -28,9 +46,9 @@ const showForecast = (response) => {
       } title=${forecast.condition.icon}></div>
         <div><span id="max">${Math.round(
           forecast.temperature.maximum
-        )}</span>°  <span id="min" class="text-secondary">${Math.round(
+        )}°</span>  <span id="min" class="text-secondary">${Math.round(
         forecast.temperature.minimum
-      )}</span>°</div>
+      )}°</span></div>
       </div>
       `;
     }
@@ -54,6 +72,7 @@ const showTemprature = (response) => {
   let header = document.querySelector('h1');
   let descElement = document.querySelector('#description');
   let iconElement = document.querySelector('#icon');
+  let dateElement = document.querySelector('#date-time');
 
   let city = response.data.city;
   let temp = Math.round(response.data.temperature.current);
@@ -61,6 +80,7 @@ const showTemprature = (response) => {
   let wind = response.data.wind.speed;
   let description = response.data.condition.description;
   let icon = response.data.condition.icon_url;
+  let time = response.data.time;
 
   header.innerHTML = city;
   descElement.innerHTML = capitalize(description);
@@ -68,6 +88,7 @@ const showTemprature = (response) => {
   humidityElement.innerHTML = humidity;
   windElement.innerHTML = wind;
   iconElement.setAttribute('src', icon);
+  dateElement.innerHTML = formatDate(time);
 
   forecast(response.data.coordinates);
 };
