@@ -12,6 +12,10 @@ body {
   color: #0d6efd;
 }
 
+#forecast img {
+  width: 70px;
+}
+
 .card-footer {
   text-align: left;
 }

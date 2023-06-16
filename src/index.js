@@ -9,6 +9,46 @@ const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+const formatDay = (dt) => {
+  date = new Date(dt * 1000);
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  let day = days[date.getDay()];
+  return day;
+};
+
+const showForecast = (response) => {
+  let forecasts = response.data.daily;
+  let forecastElement = document.querySelector('#forecast');
+  let forecastHtml = '';
+  forecasts.forEach((forecast, index) => {
+    if (index < 6) {
+      forecastHtml += `
+      <div class="col-2 text-center">
+        <strong class="text-secondary">${formatDay(forecast.time)}</strong>
+        <div><img src=${forecast.condition.icon_url} alt=${
+        forecast.condition.description
+      } title=${forecast.condition.icon}></div>
+        <div><span id="max">${Math.round(
+          forecast.temperature.maximum
+        )}</span>°  <span id="min" class="text-secondary">${Math.round(
+        forecast.temperature.minimum
+      )}</span>°</div>
+      </div>
+      `;
+    }
+  });
+
+  forecastElement.innerHTML = forecastHtml;
+};
+
+const forecast = (coord) => {
+  let lat = coord.latitude;
+  let lon = coord.longitude;
+
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
+  axios.get(forecastApiUrl).then(showForecast);
+};
+
 const showTemprature = (response) => {
   let tempElement = document.querySelector('#temp');
   let humidityElement = document.querySelector('#humidity');
@@ -25,11 +65,13 @@ const showTemprature = (response) => {
   let icon = response.data.condition.icon_url;
 
   header.innerHTML = city;
-  descElement.innerHTML = description;
+  descElement.innerHTML = capitalize(description);
   tempElement.innerHTML = temp;
   humidityElement.innerHTML = humidity;
   windElement.innerHTML = wind;
   iconElement.setAttribute('src', icon);
+
+  forecast(response.data.coordinates);
 };
 
 const search = (cityName) => {
